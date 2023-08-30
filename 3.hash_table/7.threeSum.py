@@ -7,7 +7,7 @@ class Solution(object):
         result = []
         nums.sort()
         left, right = 0, len(nums)-1
-        for i in range(len(nums)):
+        for i in range(len(nums)-2):
             if nums[i] > 0:
                 return result
             if i > 0 and nums[i]==nums[i-1]:
