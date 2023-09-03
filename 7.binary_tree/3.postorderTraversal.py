@@ -6,7 +6,7 @@ class TreeNode(object):
         self.right = right
 
 class Solution(object):
-    def inorderTraversal(self, root):
+    def postorderTraversal(self, root):
         """
         :type root: TreeNode
         :rtype: List[int]
@@ -14,9 +14,9 @@ class Solution(object):
         # 递归法
         # if not root:
         #     return []
-        # left = self.inorderTraversal(root.left)
-        # right = self.inorderTraversal(root.right)
-        # return left+[root.val]+right
+        # left = self.postorderTraversal(root.left)
+        # right = self.postorderTraversal(root.right)
+        # return left+right+[root.val]
 
         # 迭代法
         if not root:
@@ -24,7 +24,13 @@ class Solution(object):
         result = []
         stack = [root]
         while stack:
-            
+            node = stack.pop()
+            result.append(node.val)
+            if node.left:
+                stack.append(node.left)
+            if node.right:
+                stack.append(node.right)
+        return list(reversed(result))
 
 
 node3 = TreeNode(3)
@@ -32,5 +38,5 @@ node2 = TreeNode(2, node3)
 node1 = TreeNode(1, None, node2)
 
 solution = Solution()
-res = solution.inorderTraversal(node1)
+res = solution.postorderTraversal(node1)
 print(res)
