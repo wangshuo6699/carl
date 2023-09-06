@@ -11,22 +11,28 @@ class Solution(object):
         :type root: TreeNode
         :rtype: int
         """
-        from collections import deque
-        
+        # 层序遍历
+        # from collections import deque
+        # if not root:
+        #     return 0
+        # depth = 0
+        # queue = deque([root])
+        # while queue:
+        #     depth+=1
+        #     for _ in range(len(queue)):
+        #         cur = queue.popleft()
+        #         if cur.left:
+        #             queue.append(cur.left)
+        #         if cur.right:
+        #             queue.append(cur.right)
+        # return depth
+
+        # 后序遍历
         if not root:
             return 0
-        depth = 0
-        queue = deque([root])
-        while queue:
-            depth+=1
-            for _ in range(len(queue)):
-                cur = queue.popleft()
-                if cur.left:
-                    queue.append(cur.left)
-                if cur.right:
-                    queue.append(cur.right)
-        return depth
-        
+        left_depth = self.maxDepth(root.left)
+        right_depth = self.maxDepth(root.right)
+        return 1+max(left_depth, right_depth)
 
 node1 = TreeNode(15)
 node2 = TreeNode(7)
