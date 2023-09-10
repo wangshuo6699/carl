@@ -6,23 +6,36 @@ class TreeNode(object):
         self.right = right
 
 class Solution(object):
+    def __init__(self) -> None:
+        self.max_val = float('-inf')
+
     def isValidBST(self, root):
         """
         :type root: TreeNode
         :rtype: bool
         """
-        bt_list = self.inorderTraversal(root)
-        for i in range(len(bt_list)-1):
-            if bt_list[i]>=bt_list[i+1]:
-                return False
-        return True
-    
-    def inorderTraversal(self, root):
         if not root:
-            return []
-        left = self.inorderTraversal(root.left)
-        right = self.inorderTraversal(root.right)
-        return left+[root.val]+right
+            return True
+        max_val = -float('inf')
+        left = self.isValidBST(root.left)
+        if root.val > self.max_val:
+            self.max_val = root.val
+        else:
+            return False
+        right = self.isValidBST(root.right)
+        return left and right
+    #     bt_list = self.inorderTraversal(root)
+    #     for i in range(len(bt_list)-1):
+    #         if bt_list[i]>=bt_list[i+1]:
+    #             return False
+    #     return True
+    
+    # def inorderTraversal(self, root):
+    #     if not root:
+    #         return []
+    #     left = self.inorderTraversal(root.left)
+    #     right = self.inorderTraversal(root.right)
+    #     return left+[root.val]+right
 
 node1 = TreeNode(1)
 node2 = TreeNode(3)
