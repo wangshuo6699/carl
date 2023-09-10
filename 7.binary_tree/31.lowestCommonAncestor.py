@@ -1,9 +1,9 @@
 # Definition for a binary tree node.
 class TreeNode(object):
-    def __init__(self, x):
+    def __init__(self, x, left=None, right=None):
         self.val = x
-        self.left = None
-        self.right = None
+        self.left = left
+        self.right = right
 
 class Solution(object):
     def lowestCommonAncestor(self, root, p, q):
@@ -13,51 +13,29 @@ class Solution(object):
         :type q: TreeNode
         :rtype: TreeNode
         """
-        # 递归法
-        # if not root:
-        #     return None
-        # if root.val>=p and root.val<=q or root.val<=p and root.val>=q:
-        #     return root
-        # left = self.lowestCommonAncestor(root.left, p, q)
-        # if left:
-        #     return left
-        # right = self.lowestCommonAncestor(root.right, p, q)
-        # if right:
-        #     return right
-        # return False
-
-        # 迭代法
-        if not root:
+        if not root or root.val==p or root.val==q:
+            return root
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right, p, q)
+        if left and right:
+            return root
+        if not left and right:
+            return right
+        if left and not right:
+            return left
+        if not left and not right:
             return False
-        while root:
-            if root.val>p.val and root.val>q.val:
-                self.lowestCommonAncestor(root.left)
-            elif root.val<p.val and root.val<q.val:
-                self.lowestCommonAncestor(root.right)
-            else:
-                return root
-        return False
-            
-    
-node0 = TreeNode(0)
-node2 = TreeNode(2)
-node3 = TreeNode(3)
-node4 = TreeNode(4)
-node5 = TreeNode(5)
-node6 = TreeNode(6)
-node7 = TreeNode(7)
-node8 = TreeNode(8)
-node9 = TreeNode(9)
 
-node4.left = node3
-node4.right = node5
-node2.left = node0
-node2.right = node4
-node8.left = node7
-node8.right = node9
-node6.left = node2
-node6.right = node8
+node1 = TreeNode(7)
+node2 = TreeNode(4)
+node3 = TreeNode(6)
+node4 = TreeNode(2, node1, node2)
+node5 = TreeNode(0)
+node6 = TreeNode(8)
+node7 = TreeNode(5, node3, node4)
+node8 = TreeNode(1, node5, node6)
+root  = TreeNode(3, node7, node8)
 
 solution = Solution()
-res = solution.lowestCommonAncestor(node6, p=2, q=4)
+res = solution.lowestCommonAncestor(root, p=7, q=6)
 print(res.val)
