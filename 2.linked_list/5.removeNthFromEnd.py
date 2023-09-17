@@ -41,6 +41,8 @@ class Solution(object):
             slow = slow.next
         slow.next = slow.next.next
         return dummy_head.next
+
+
         
 l = LinkList()
 l.initList([1,2,3,4,5])
